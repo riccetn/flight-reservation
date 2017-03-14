@@ -16,4 +16,9 @@ public class Customer {
 	public String getSurname() {
 		return surname;
 	}
+
+	@Override
+	public String toString() {
+		return "Customer: " + firstname + " " + surname;
+	}
 }

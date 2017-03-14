@@ -1,11 +1,14 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 	private static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 	private static Flight flight = new Flight();
 	private static MealList meals = new MealList();
+	private static List<Ticket> tickets = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		while(true) {
@@ -16,14 +19,17 @@ public class Main {
 	
 	private static void bookSeat() {
 		Customer customer = readCustomerInformation();
-		Seat seat = chooseSeat();
-		Meal meal = chooseMeal(seat.getFareClass());
-		try {
-			seat.book(customer);
-		} catch (AlreadyOccupiedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Seat seat = null;
+		while(seat == null) {
+			seat = chooseSeat();
+			try {
+				seat.book(customer);
+			} catch (AlreadyOccupiedException e) {
+				System.out.println("That seat is occupied by an other customer, please choose an other seat.");
+			}
 		}
+		Meal meal = chooseMeal(seat.getFareClass());
+		tickets.add(new Ticket(customer, seat, meal));
 	}
 	
 	private static Meal chooseMeal(FareClass fareClass) {

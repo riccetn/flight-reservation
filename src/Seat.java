@@ -36,4 +36,9 @@ public class Seat {
 	public Customer getCustomer() {
 		return customer;
 	}
+
+	@Override
+	public String toString() {
+		return "Seat " + number + ": " + fareClass + " class";
+	}
 }
