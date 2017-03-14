@@ -28,7 +28,14 @@ public class Main {
 	
 	private static Meal chooseMeal(FareClass fareClass) {
 		meals.printMenu(fareClass);
-		return null;
+		int mealid = readInteger("Meal number> ");
+		try {
+			return meals.getMeal(fareClass, mealid);
+		} catch (NoSuchMealException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	private static Seat chooseSeat() {

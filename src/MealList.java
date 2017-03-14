@@ -31,5 +31,19 @@ public class MealList {
 		}
 	}
 	
+	public Meal getMeal(FareClass fareClass, int id) throws NoSuchMealException {
+		switch(fareClass) {
+			case First:
+				if(id < 1 || id > vipMenu.size())
+					throw new NoSuchMealException();
+				return vipMenu.get(id-1);
+			case Economy:
+				if(id < 1 || id > economyMenu.size())
+					throw new NoSuchMealException();
+				return economyMenu.get(id-1);
+			default: throw new AssertionError();
+		}
+	}
+	
 	
 }
