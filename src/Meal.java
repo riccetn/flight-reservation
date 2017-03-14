@@ -7,6 +7,14 @@ public class Meal {
 		this.meal = meal;
 		this.price = price;
 	}
+
+	public String getMeal() {
+		return meal;
+	}
+
+	public int getPrice() {
+		return price;
+	}
 	
 	
 	
