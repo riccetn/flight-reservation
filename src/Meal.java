@@ -11,6 +11,14 @@ public class Meal {
 		this.price = price;
 		this.mealID = mealID;
 	}
+
+	public String getMeal() {
+		return meal;
+	}
+
+	public int getPrice() {
+		return price;
+	}
 	
 	
 	
