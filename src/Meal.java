@@ -19,14 +19,16 @@ public class Meal {
 	public int getPrice() {
 		return price;
 	}
-	
-	
-	
-	
+				
 
+	public int getMealID() {
+		return mealID;
+	}
+	
+	
 	@Override
 	public String toString(){
-		return mealID + " " + meal + "......" +" SEK " + price;  
+		return mealID + ": " + meal + "......" +" SEK " + price;  
 	}
 
 	
