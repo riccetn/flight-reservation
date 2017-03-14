@@ -13,10 +13,32 @@ public class Main {
 	public static void main(String[] args) {
 		while(true) {
 			System.out.println("1) Book a seat");
-			bookSeat();
+			System.out.println("2) Print all tickets");
+			System.out.println("3) Quit application"); 
+			int choise = readInteger("Choose> ");
+			switch(choise) {
+			case 1:
+				bookSeat();
+				break;
+			case 2:
+				printAllTickets();
+				break;
+			case 3:
+				return;
+			}
 		}
 	}
 	
+	private static void printAllTickets() {
+		double totalIncome = 0.0;
+		for(Ticket ticket : tickets) {
+			System.out.println(ticket);
+			totalIncome += ticket.calcPrice();
+		}
+		System.out.println("Total income: " + totalIncome);
+		System.out.println("Total profit (30% of income): " + totalIncome*0.3);
+	}
+
 	private static void bookSeat() {
 		Customer customer = readCustomerInformation();
 		Seat seat = null;
@@ -34,14 +56,16 @@ public class Main {
 	
 	private static Meal chooseMeal(FareClass fareClass) {
 		meals.printMenu(fareClass);
-		int mealid = readInteger("Meal number> ");
-		try {
-			return meals.getMeal(fareClass, mealid);
-		} catch (NoSuchMealException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
+		Meal meal = null;
+		while(meal == null) {
+			try {
+				int mealid = readInteger("Meal number> ");
+				meal = meals.getMeal(fareClass, mealid);
+			} catch (NoSuchMealException e) {
+				System.out.println("There is no meal with that number on the menu");
+			}
 		}
+		return meal;
 	}
 
 	private static Seat chooseSeat() {
