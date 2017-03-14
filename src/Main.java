@@ -5,16 +5,19 @@ import java.io.InputStreamReader;
 public class Main {
 	private static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 	private static Flight flight = new Flight();
+	private static MealList meals = new MealList();
 	
 	public static void main(String[] args) {
-		System.out.println("1) Book a seat");
-		bookSeat();
-		listAvaiableSeats();
+		while(true) {
+			System.out.println("1) Book a seat");
+			bookSeat();
+		}
 	}
 	
 	private static void bookSeat() {
 		Customer customer = readCustomerInformation();
 		Seat seat = chooseSeat();
+		Meal meal = chooseMeal(seat.getFareClass());
 		try {
 			seat.book(customer);
 		} catch (AlreadyOccupiedException e) {
@@ -23,6 +26,11 @@ public class Main {
 		}
 	}
 	
+	private static Meal chooseMeal(FareClass fareClass) {
+		meals.printMenu(fareClass);
+		return null;
+	}
+
 	private static Seat chooseSeat() {
 		System.out.println("Choose seat:");
 		listAvaiableSeats();
@@ -45,23 +53,7 @@ public class Main {
 	private static Customer readCustomerInformation() {
 		String firstname = readLine("First name> ");
 		String surname = readLine("Surname> ");
-		Gender gender = readGender("Gender (M/F)> ");
-		return new Customer(firstname, surname, gender);
-	}
-
-	private static Gender readGender(String prompt) {
-		while(true) {
-			System.out.print(prompt);
-			try {
-				String line = in.readLine();
-				switch(line) {
-					case "M": case "m": return Gender.Male;
-					case "F": case "f": return Gender.Female;
-				}
-			} catch(IOException ex) {
-				throw new RuntimeException(ex);
-			}
-		}
+		return new Customer(firstname, surname);
 	}
 
 	private static String readLine(String prompt) {
