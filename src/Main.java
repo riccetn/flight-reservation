@@ -19,12 +19,12 @@ public class Main {
 			switch(choise) {
 			case 1:
 				bookFlight();
-				//bookSeat();
 				break;
 			case 2:
 				printAllTickets();
 				break;
 			case 3:
+				System.out.println("Good bye!");
 				return;
 			}
 		}
