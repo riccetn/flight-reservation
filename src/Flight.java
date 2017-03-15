@@ -46,32 +46,4 @@ public class Flight {
 	public String toString() {
 		return flightNo + ": " + flightName + " Departure time: " + departureTime;  
 	}
-	
-	
-/*
-	public void addCustomer(Customer customer) throws TooManyCustomersException {
-		if(customers.size() >= maxCapacity)
-			throw new TooManyCustomersException();
-		customers.add(customer);
-	}
-
-	public void removeCustomer(Customer customer) {
-		customers.remove(customer);
-	}
-
-	public boolean findCustomer(String firstname, String surname) {
-		for(Customer customer : customers) {
-			if(customer.getFirstname().equals(firstname) && customer.getSurname().equals(surname)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public void printCustomers() {
-		for(Customer customer : customers) {
-			System.out.println(customer);
-		}
-	}
-	*/
 }

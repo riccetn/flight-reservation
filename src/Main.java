@@ -60,28 +60,7 @@ public class Main {
 		Meal meal = chooseMeal(seat.getFareClass());
 		tickets.add(new Ticket(flight, customer, seat, meal));
 	}
-	
-	
-	
-	
-	
-/*	private static void bookSeat() {
 
-		Customer customer = readCustomerInformation();
-		Seat seat = null;
-		while(seat == null) {
-			seat = chooseSeat();
-			try {
-				seat.book(customer);
-			} catch (AlreadyOccupiedException e) {
-				System.out.println("That seat is occupied by an other customer, please choose an other seat.");
-			}
-		}
-		Meal meal = chooseMeal(seat.getFareClass());
-		tickets.add(new Ticket(flight, customer, seat, meal));
-	} 
-	*/
-	
 	private static Meal chooseMeal(FareClass fareClass) {
 		meals.printMenu(fareClass);
 		Meal meal = null;
