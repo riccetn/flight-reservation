@@ -6,19 +6,20 @@ import java.util.List;
 
 public class Main {
 	private static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-	private static Flight flight = new Flight();
+	private static FlightList flights = new FlightList();
 	private static MealList meals = new MealList();
 	private static List<Ticket> tickets = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		while(true) {
-			System.out.println("1) Book a seat");
+			System.out.println("1) Book a flight and a seat");
 			System.out.println("2) Print all tickets");
 			System.out.println("3) Quit application"); 
 			int choise = readInteger("Choose> ");
 			switch(choise) {
 			case 1:
-				bookSeat();
+				bookFlight();
+				//bookSeat();
 				break;
 			case 2:
 				printAllTickets();
@@ -39,7 +40,33 @@ public class Main {
 		System.out.println("Total profit (30% of income): " + totalIncome*0.3);
 	}
 
-	private static void bookSeat() {
+	
+	private static void bookFlight() {
+		Flight flight = null;
+		Customer customer = readCustomerInformation();
+		Seat seat = null;
+		flight = chooseFlight();		
+	
+
+		while(seat == null) {
+			seat = chooseSeat(flight);
+			try {
+				seat.book(customer);
+			} catch (AlreadyOccupiedException e) {
+				System.out.println("That seat is occupied by an other customer, please choose an other seat.");
+				seat = null;
+			}
+		}
+		Meal meal = chooseMeal(seat.getFareClass());
+		tickets.add(new Ticket(flight, customer, seat, meal));
+	}
+	
+	
+	
+	
+	
+/*	private static void bookSeat() {
+
 		Customer customer = readCustomerInformation();
 		Seat seat = null;
 		while(seat == null) {
@@ -51,8 +78,9 @@ public class Main {
 			}
 		}
 		Meal meal = chooseMeal(seat.getFareClass());
-		tickets.add(new Ticket(customer, seat, meal));
-	}
+		tickets.add(new Ticket(flight, customer, seat, meal));
+	} 
+	*/
 	
 	private static Meal chooseMeal(FareClass fareClass) {
 		meals.printMenu(fareClass);
@@ -68,13 +96,15 @@ public class Main {
 		return meal;
 	}
 
-	private static Seat chooseSeat() {
+	private static Seat chooseSeat(Flight flight) {
 		System.out.println("Choose seat:");
-		listAvaiableSeats();
+		listAvaiableSeats(flight);
 		int seatNo = readInteger("Seat number> ");
 		return flight.getSeat(seatNo);
 	}
 
+
+	
 	private static int readInteger(String prompt) {
 		while(true) {
 			System.out.print(prompt);
@@ -102,12 +132,26 @@ public class Main {
 		}
 	}
 
-	private static void listAvaiableSeats() {
+	private static void listAvaiableSeats(Flight flight) {
 		for(Seat seat : flight.seatList()) {
 			if(seat.getCustomer() == null)
 				System.out.println(seat.getNumber() + ": Free " + seat.getFareClass() + " class seat");
 			else
 				System.out.println(seat.getNumber() + ": Occupied seat");
 		}
+	}
+	
+	private static Flight chooseFlight() {
+		flights.printFlights();
+		Flight flight = null;
+		while(flight == null) {
+			try {
+				int flightNo = readInteger("Flight number> ");
+				flight = flights.getFlight(flightNo);
+			} catch (NoSuchFlightException e) {
+				System.out.println("There is no flight with that chosen number");
+			}
+		}
+		return flight;
 	}
 }

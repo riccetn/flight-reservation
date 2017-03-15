@@ -3,16 +3,21 @@ public class Ticket {
 	private Customer customer;
 	private Seat seat;
 	private Meal meal;
+	private Flight flight;
 	
 	
-	public Ticket(Customer customer, Seat seat, Meal meal) {
+	public Ticket(Flight flight, Customer customer, Seat seat, Meal meal) {
 		super();
+		this.flight = flight;
 		this.customer = customer;
 		this.seat = seat;
 		this.meal = meal;
 	}
 
-
+	public Flight getFlight() {
+		return flight;
+	}
+	
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -30,7 +35,7 @@ public class Ticket {
 
 	@Override
 	public String toString() {
-		return "Ticket [customer=" + customer + ", seat=" + seat + ", meal=" + meal + "]";
+		return "Ticket [customer=" + customer + ", flight=" + flight.getFlightName() + ", seat=" + seat + ", meal=" + meal + "]";
 	}
 	
 	public double calcPrice() {
