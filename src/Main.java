@@ -76,11 +76,22 @@ public class Main {
 	}
 
 	private static Seat chooseSeat(Flight flight) {
+		Seat seat = null;
 		System.out.println("Choose seat:");
 		listAvaiableSeats(flight);
-		int seatNo = readInteger("Seat number> ");
-		return flight.getSeat(seatNo);
-	}
+		
+		while(seat == null) {
+		try{
+			int seatNo = readInteger("Seat number> ");
+			seat = flight.getSeat(seatNo);
+
+		} catch (NoSuchSeatException e) {
+			System.out.println("There is no seat with that number on the flight");
+				}
+			}
+		
+		return seat;
+		}
 
 
 	
