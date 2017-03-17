@@ -10,12 +10,14 @@ public class Main {
 	private static MealList meals = new MealList();
 	private static List<Ticket> tickets = new ArrayList<>();
 	
+	
 	public static void main(String[] args) {
 		while(true) {
 			System.out.println("1) Book a flight and a seat");
 			System.out.println("2) Print all tickets");
 			System.out.println("3) Quit application"); 
 			int choise = readInteger("Choose> ");
+			
 			switch(choise) {
 			case 1:
 				bookFlight();
@@ -45,20 +47,33 @@ public class Main {
 		Flight flight = null;
 		Customer customer = readCustomerInformation();
 		Seat seat = null;
-		flight = chooseFlight();		
-	
+		flight = chooseFlight();
 
-		while(seat == null) {
-			seat = chooseSeat(flight);
-			try {
+		int seatsRemainingOnFlight=flight.calcSeatsRemainingOnFlight();
+
+		if(seatsRemainingOnFlight >= 0){
+	
+		
+			while(seat == null) {
+			
+			      seat = chooseSeat(flight);
+			   try {
+				
 				seat.book(customer);
-			} catch (AlreadyOccupiedException e) {
-				System.out.println("That seat is occupied by an other customer, please choose an other seat.");
-				seat = null;
-			}
+			
+			   } catch (AlreadyOccupiedException e) {
+				  System.out.println("That seat is occupied by an other customer, please choose an other seat.");
+				  seat = null;
+			 }
+		   }
+		   Meal meal = chooseMeal(seat.getFareClass());
+		   tickets.add(new Ticket(flight, customer, seat, meal));
+
+		    
 		}
-		Meal meal = chooseMeal(seat.getFareClass());
-		tickets.add(new Ticket(flight, customer, seat, meal));
+		else{
+			System.out.println("For this flight all seats are occupiedes");
+		}
 	}
 
 	private static Meal chooseMeal(FareClass fareClass) {
@@ -78,7 +93,7 @@ public class Main {
 	private static Seat chooseSeat(Flight flight) {
 		System.out.println("Choose seat:");
 		listAvaiableSeats(flight);
-		int seatNo = readInteger("Seat number> ");
+		int seatNo = readInteger("Seat number> ");	
 		return flight.getSeat(seatNo);
 	}
 
