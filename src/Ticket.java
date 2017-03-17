@@ -30,7 +30,7 @@ public class Ticket {
 
 	@Override
 	public String toString() {
-		return "Ticket [customer= " + customer + ", flight= " + flight.getFlightName() + ", seat= " + seat + ", meal= " + meal + "]";
+		return "Ticket for " + customer + " on flight " + flight.getFlightName() + ", seat " + seat + ", meal " + meal.getMeal() + ": " + calcPrice();
 	}
 	
 	public double calcPrice() {
