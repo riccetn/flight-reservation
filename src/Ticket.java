@@ -1,11 +1,9 @@
-
 public class Ticket {
 	private Customer customer;
 	private Seat seat;
 	private Meal meal;
 	private Flight flight;
-	
-	
+
 	public Ticket(Flight flight, Customer customer, Seat seat, Meal meal) {
 		super();
 		this.flight = flight;
@@ -22,16 +20,13 @@ public class Ticket {
 		return customer;
 	}
 
-
 	public Seat getSeat() {
 		return seat;
 	}
 
-
 	public Meal getMeal() {
 		return meal;
 	}
-
 
 	@Override
 	public String toString() {

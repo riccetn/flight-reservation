@@ -2,12 +2,12 @@ public class Seat {
 	private int number;
 	private FareClass fareClass;
 	private Customer customer = null;
-	
+
 	public Seat(int number, FareClass fareClass) {
 		this.number = number;
 		this.fareClass = fareClass;
 	}
-	
+
 	public void book(Customer customer) throws AlreadyOccupiedException {
 		if(this.customer != null)
 			throw new AlreadyOccupiedException();
