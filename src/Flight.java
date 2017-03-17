@@ -30,12 +30,17 @@ public class Flight {
 		return Collections.unmodifiableList(Arrays.asList(this.seats));
 	}
 	
-	public Seat getSeat(int seatNo) {
+	public Seat getSeat(int seatNo)  throws NoSuchSeatException {
+		
+		if(seatNo < 1 || seatNo > seats.length)
+			throw new NoSuchSeatException();
 		return seats[seatNo-1];
 	}
 	
 	
-	public int getFlightNo() {
+	
+	public int getFlightNo(){		
+		
 		return flightNo;
 	}
 	
