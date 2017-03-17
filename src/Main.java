@@ -45,24 +45,27 @@ public class Main {
 		Flight flight = null;
 		Customer customer = readCustomerInformation();
 		Seat seat = null;
-		flight = chooseFlight();
-
-		int seatsRemainingOnFlight = flight.calcSeatsRemainingOnFlight();
-		if (seatsRemainingOnFlight >= 0) {
-			while (seat == null) {
-				seat = chooseSeat(flight);
-				try {
-					seat.book(customer);
-				} catch (AlreadyOccupiedException e) {
-					System.out.println("That seat is occupied by an other customer, please choose an other seat.");
-					seat = null;
-				}
+		
+		while(flight == null) {
+			flight = chooseFlight();
+			if (flight.calcSeatsRemainingOnFlight() < 0) {
+				System.out.println("For this flight all seats are occupiedes");
+				flight = null;
 			}
-			Meal meal = chooseMeal(seat.getFareClass());
-			tickets.add(new Ticket(flight, customer, seat, meal));
-		} else {
-			System.out.println("For this flight all seats are occupiedes");
 		}
+
+		while (seat == null) {
+			seat = chooseSeat(flight);
+			try {
+				seat.book(customer);
+			} catch (AlreadyOccupiedException e) {
+				System.out.println("That seat is occupied by an other customer, please choose an other seat.");
+				seat = null;
+			}
+		}
+
+		Meal meal = chooseMeal(seat.getFareClass());
+		tickets.add(new Ticket(flight, customer, seat, meal));
 	}
 
 	private static Meal chooseMeal(FareClass fareClass) {
@@ -97,8 +100,6 @@ public class Main {
 		return seat;
 	}
 
-
-	
 	private static int readInteger(String prompt) {
 		while(true) {
 			System.out.print(prompt);
